@@ -62,13 +62,12 @@
       let speechInterval;
       const progressSlider = document.getElementById("progressSlider");
       const currentTimeDisplay = document.getElementById("currentTime");
+      let femaleVoice;
 
       function initVoices() {
         const voices = window.speechSynthesis.getVoices();
         // Example: Find the first female voice
-        femaleVoice =
-          voices.find((voice) => voice.name.toLowerCase().includes("female")) ||
-          voices[0];
+        femaleVoice = voices.find(voice => voice.name.toLowerCase().includes("female")) || voices[0];
       }
 
       function speakText() {
@@ -145,6 +144,9 @@
         const secs = Math.floor(seconds % 60);
         return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
       }
+
+      // Initialize voices once they are loaded
+      window.speechSynthesis.onvoiceschanged = initVoices;
     </script>
   </body>
 </html>
